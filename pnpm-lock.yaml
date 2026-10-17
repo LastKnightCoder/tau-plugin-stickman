@@ -17,6 +17,9 @@ importers:
       '@tau/ui':
         specifier: npm:@xiongtao.xt/tau-ui@0.1.1
         version: '@xiongtao.xt/tau-ui@0.1.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)'
+      lucide-react:
+        specifier: 0.399.0
+        version: 0.399.0(react@19.2.0)
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -218,7 +221,7 @@ packages:
     resolution: {integrity: sha512-1LOH8xovvsKsCBq1wnT4ntDUdCJKmnEakhsuoUSy6ExlHCkGP2hqnatagYTgFk6oeL0VU31u7SNjunPN+GchtA==}
 
   '@xiongtao.xt/tau-plugins@file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz':
-    resolution: {integrity: sha512-3eG4U6kdfJOsZFzpisNMK2IPNOKJw22DEH+iUPG6nfB4Lud8yCSssGqyJvhKYbot625VVf0MvqeH+jiIT/yhSQ==, tarball: file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz}
+    resolution: {integrity: sha512-H76JwfzydNvGbLLEuJBByn+Kq8upxRunLjQ/mm/G5E/1M9zvO+o4eT3uJdTrbv0iN3K1jckUEx/EkUDkygNKkw==, tarball: file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz}
     version: 0.8.0-dev.0
     peerDependencies:
       react: 19.2.0

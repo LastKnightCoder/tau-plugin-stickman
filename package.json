@@ -1,6 +1,6 @@
 {
-  "name": "tau-whiteboard-probe",
-  "version": "0.2.0",
+  "name": "tau-plugin-stickman",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "install:local": "node install-local.mjs"
   },
   "dependencies": {
+    "lucide-react": "0.399.0",
     "@tanstack/react-query": "5.90.16",
     "@tau/plugins": "file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz",
     "@tau/ui": "npm:@xiongtao.xt/tau-ui@0.1.1",

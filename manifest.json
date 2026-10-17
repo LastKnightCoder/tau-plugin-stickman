@@ -1,9 +1,9 @@
 {
   "formatVersion": 1,
-  "id": "example.whiteboard-probe",
-  "name": "白板接入验证",
-  "description": "M1 开发样本：验证白板元素创建、编辑与保存，不是完整火柴人。",
-  "version": "0.2.0",
+  "id": "taunote.stickman",
+  "name": "火柴人",
+  "description": "在白板中放置人物姿态，支持形体、配色、翻转和手绘画风。",
+  "version": "0.1.0",
   "minAppVersion": "0.59.0",
   "apiVersion": 1,
   "platform": "desktop",
