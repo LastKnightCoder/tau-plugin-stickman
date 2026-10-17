@@ -1,6 +1,6 @@
 # 火柴人插件开发指南
 
-使用 Node.js 22 或更高版本、pnpm 11.9.0。白板 SDK 尚未发布，先将宿主生成的 `xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz` 放入 `.sdk/`。该目录不提交；正式发布时替换为已发布的依赖版本。
+使用 Node.js 24、pnpm 11.9.0。依赖公开 npm SDK 0.8.0，无需本地声明包或主项目源码。
 
 ```sh
 pnpm install --frozen-lockfile
@@ -8,7 +8,7 @@ pnpm check
 pnpm build
 ```
 
-产物为 `dist/taunote.stickman-0.1.0.zip`。构建仅依赖 SDK 声明包与公开 npm 包，不引用宿主源码。构建成功不代表客户端验收完成。
+产物为 `dist/taunote.stickman-0.1.1.zip`。构建仅依赖公开 npm 包，不引用宿主源码。构建成功不代表客户端验收完成。
 
 ## 实现位置
 
@@ -34,4 +34,4 @@ pnpm build
 
 ## 仓库与发布
 
-`template` 远端仅用于读取模板；尚无插件专属远端，默认 push 已禁用。模板更新按需挑选构建配置和文档，不自动合并覆盖人物代码。当前未发布 npm SDK 或插件仓库，分发安排见 RESEARCH.md。
+源码仓库：https://github.com/LastKnightCoder/tau-plugin-stickman 。`template` 远端仅用于读取模板，更新时按需挑选构建配置和文档，不自动合并覆盖人物代码。发布时提升版本、提交并构建，将 ZIP 上传到对应版本的 GitHub Release。

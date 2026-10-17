@@ -8,12 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@tanstack/react-query':
-        specifier: 5.90.16
-        version: 5.90.16(react@19.2.0)
       '@tau/plugins':
-        specifier: file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz
-        version: '@xiongtao.xt/tau-plugins@file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(slate-dom@0.140.0(slate@0.126.2))'
+        specifier: npm:@xiongtao.xt/tau-plugins@0.8.0
+        version: '@xiongtao.xt/tau-plugins@0.8.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(slate-dom@0.140.0(slate@0.126.2))'
       '@tau/ui':
         specifier: npm:@xiongtao.xt/tau-ui@0.1.1
         version: '@xiongtao.xt/tau-ui@0.1.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)'
@@ -204,14 +201,6 @@ packages:
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
-  '@tanstack/query-core@5.90.16':
-    resolution: {integrity: sha512-MvtWckSVufs/ja463/K4PyJeqT+HMlJWtw6PrCpywznd2NSgO3m4KwO9RqbFqGg6iDE8vVMFWMeQI4Io3eEYww==}
-
-  '@tanstack/react-query@5.90.16':
-    resolution: {integrity: sha512-bpMGOmV4OPmif7TNMteU/Ehf/hoC0Kf98PDc0F4BZkFrEapRMEqI/V6YS0lyzwSV6PQpY1y4xxArUIfBW5LVxQ==}
-    peerDependencies:
-      react: ^18 || ^19
-
   '@types/react-dom@19.2.0':
     resolution: {integrity: sha512-brtBs0MnE9SMx7px208g39lRmC5uHZs96caOJfTjFcYSLHNamvaSMfJNagChVNkup2SdtOxKX1FDBkRSJe1ZAg==}
     peerDependencies:
@@ -220,9 +209,8 @@ packages:
   '@types/react@19.2.0':
     resolution: {integrity: sha512-1LOH8xovvsKsCBq1wnT4ntDUdCJKmnEakhsuoUSy6ExlHCkGP2hqnatagYTgFk6oeL0VU31u7SNjunPN+GchtA==}
 
-  '@xiongtao.xt/tau-plugins@file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz':
-    resolution: {integrity: sha512-H76JwfzydNvGbLLEuJBByn+Kq8upxRunLjQ/mm/G5E/1M9zvO+o4eT3uJdTrbv0iN3K1jckUEx/EkUDkygNKkw==, tarball: file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz}
-    version: 0.8.0-dev.0
+  '@xiongtao.xt/tau-plugins@0.8.0':
+    resolution: {integrity: sha512-1L0BRX99wZimaR7DZO6urCm0IwUZiP4ItefqQbS1Rdd6RIse0/5D0Cc+jxCMhQVeuEhNwsFR15C4m+Z4hVFsjA==}
     peerDependencies:
       react: 19.2.0
       react-dom: 19.2.0
@@ -397,13 +385,6 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
-  '@tanstack/query-core@5.90.16': {}
-
-  '@tanstack/react-query@5.90.16(react@19.2.0)':
-    dependencies:
-      '@tanstack/query-core': 5.90.16
-      react: 19.2.0
-
   '@types/react-dom@19.2.0(@types/react@19.2.0)':
     dependencies:
       '@types/react': 19.2.0
@@ -412,7 +393,7 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
-  '@xiongtao.xt/tau-plugins@file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(slate-dom@0.140.0(slate@0.126.2))':
+  '@xiongtao.xt/tau-plugins@0.8.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(slate-dom@0.140.0(slate@0.126.2))':
     dependencies:
       '@types/react': 19.2.0
       '@types/react-dom': 19.2.0(@types/react@19.2.0)

@@ -1,6 +1,6 @@
 {
   "name": "tau-plugin-stickman",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "license": "MIT",
@@ -15,8 +15,7 @@
   },
   "dependencies": {
     "lucide-react": "0.399.0",
-    "@tanstack/react-query": "5.90.16",
-    "@tau/plugins": "file:.sdk/xiongtao.xt-tau-plugins-0.8.0-dev.0.tgz",
+    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.8.0",
     "@tau/ui": "npm:@xiongtao.xt/tau-ui@0.1.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
@@ -27,5 +26,9 @@
     "adm-zip": "0.5.16",
     "esbuild": "0.25.12",
     "typescript": "5.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LastKnightCoder/tau-plugin-stickman.git"
   }
 }
