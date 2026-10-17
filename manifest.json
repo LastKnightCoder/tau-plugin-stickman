@@ -1,12 +1,13 @@
 {
   "formatVersion": 1,
-  "id": "example.external-counter",
-  "name": "计数器示例",
-  "description": "在侧边栏记录并保存计数。",
-  "version": "1.0.0",
+  "id": "example.whiteboard-probe",
+  "name": "白板接入验证",
+  "description": "M1 开发样本：验证白板元素创建、编辑与保存，不是完整火柴人。",
+  "version": "0.2.0",
   "minAppVersion": "0.59.0",
   "apiVersion": 1,
   "platform": "desktop",
   "format": "cjs",
-  "main": "main.js"
+  "main": "main.js",
+  "whiteboard": true
 }
