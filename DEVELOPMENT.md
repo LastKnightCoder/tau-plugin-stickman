@@ -1,5 +1,18 @@
 # 火柴人插件开发指南
 
+## 自动发布
+
+本仓库的.github/workflows/release.yml与公开模板一致。同步更新package.json和manifest.json版本并提交后，推送对应版本tag即可自动安装依赖、运行测试（若定义）、构建并将ZIP上传到GitHub Release，无需手动上传或配置额外Token。
+
+```sh
+version=$(node -p "require('./manifest.json').version")
+git tag "v$version"
+git push origin HEAD
+git push origin "v$version"
+```
+
+tag也可不带v前缀，版本必须与两个文件一致；预发布版本自动标记为Pre-release。Actions失败可重跑，已有Release会更新同名ZIP。已发布版本不要移动tag，代码修复应提高版本再发布。仓库需启用Actions并允许contents:write。Git远程统一使用SSH；该流程不自动提交插件中心审核或更新客户端固定产物。
+
 使用 Node.js 24、pnpm 11.9.0。依赖公开 npm SDK 0.8.0，无需本地声明包或主项目源码。
 
 ```sh
@@ -34,4 +47,4 @@ pnpm build
 
 ## 仓库与发布
 
-源码仓库：https://github.com/LastKnightCoder/tau-plugin-stickman 。`template` 远端仅用于读取模板，更新时按需挑选构建配置和文档，不自动合并覆盖人物代码。发布时提升版本、提交并构建，将 ZIP 上传到对应版本的 GitHub Release。
+源码仓库：https://github.com/LastKnightCoder/tau-plugin-stickman 。`template` 远端仅用于读取模板，更新时按需挑选构建配置和文档，不自动合并覆盖人物代码。发布时提升版本、提交并推送版本标签，由上述工作流生成 Release 和 ZIP。
