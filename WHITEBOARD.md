@@ -2,7 +2,7 @@
 
 白板作者接口需要 SDK 0.8.0 及包含白板扩展支持的 Tau 客户端。SDK 0.7.0 不提供此能力。
 
-插件定义中声明 `whiteboardExtensions`，manifest 增加 `whiteboard: true`。使用 `@tau/plugins/whiteboard` 导入定义函数和类型，并将该模块保留为构建 external，由宿主提供实现。一个 main.js 同时包含声明、渲染与交互，不生成另一个渲染入口。
+插件定义中声明 `whiteboardExtensions`，manifest 只声明支持平台与最低客户端版本。使用 `@tau/plugins/whiteboard` 导入定义函数和类型，并将该模块保留为构建 external，由宿主提供实现。一个 main.js 同时包含声明、渲染与交互，不生成另一个渲染入口。
 
 ```tsx
 import { definePlugin } from "@tau/plugins";

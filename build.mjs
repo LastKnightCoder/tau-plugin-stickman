@@ -65,7 +65,7 @@ try {
       .digest("hex");
   await writeFile(
     path.join(staging, "manifest.json"),
-    JSON.stringify(buildPortablePluginManifest(manifest, { main: "main.js", integrity, ...(styles ? { styles: "main.css" } : {}) }), null, 2)
+    JSON.stringify(buildPortablePluginManifest(manifest, { imports: [...new Set(Object.values(result.metafile.outputs).flatMap(output => output.imports.filter(item => item.external && shared.includes(item.path)).map(item => item.path)))], main: "main.js", integrity, ...(styles ? { styles: "main.css" } : {}) }), null, 2)
   );
   const destination = path.resolve("dist", `${manifest.version}-${buildId}`);
   await rename(staging, destination);

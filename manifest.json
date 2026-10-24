@@ -9,11 +9,10 @@
     "火柴人",
     "手绘"
   ],
-  "whiteboard": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "targets": {
     "desktop": {
-      "minAppVersion": "0.59.2"
+      "minAppVersion": "0.59.3"
     }
   }
 }
