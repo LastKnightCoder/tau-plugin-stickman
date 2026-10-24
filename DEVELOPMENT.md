@@ -13,7 +13,7 @@ git push origin HEAD
 git push origin "v$version"
 ```
 
-tag也可不带v前缀，版本必须与两个文件一致；预发布版本自动标记为Pre-release。Actions失败可重跑，已有Release会更新同名ZIP。已发布版本不要移动tag，代码修复应提高版本再发布。仓库需启用Actions并允许contents:write。Git远程统一使用SSH；该流程不自动提交插件中心审核或更新客户端固定产物。
+tag也可不带v前缀，版本必须与两个文件一致；预发布版本自动标记为Pre-release。Actions失败可重跑，已有Release会更新同名ZIP。已发布版本不要移动tag，代码修复应提高版本再发布。仓库需启用Actions并允许contents:write。Git远程统一使用SSH；该流程通过 OIDC 提交插件中心，沿用作者身份与仓库绑定规则；不发布客户端。
 
 使用 Node.js 24、pnpm 11.9.0。依赖公开 npm SDK 0.8.0，无需本地声明包或主项目源码。
 
@@ -37,7 +37,7 @@ pnpm build
 | src/styles.css | 随包发布的界面样式 |
 | WHITEBOARD.md | 公共白板 SDK 契约 |
 
-交互内核和通用属性控件由宿主提供。不要复制缩放、箭头连接、历史或笔触控件，不从宿主目录深引。人物未发布，新格式只使用 `taunote.stickman.figure` 与 `data`，不添加旧格式转换。
+交互内核和通用属性控件由宿主提供。不要复制缩放、箭头连接、历史或笔触控件，不从宿主目录深引。人物节点继续使用 `taunote.stickman.figure` 与 `data`，不添加旧格式转换。
 
 ## 本地验收
 
