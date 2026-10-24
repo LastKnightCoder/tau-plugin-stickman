@@ -1,10 +1,6 @@
 import { definePlugin } from "@tau/plugins";
 import "./styles.css";
-import {
-  defineElement,
-  defineWhiteboardExtension,
-  IPluginStorage,
-} from "@tau/plugins/whiteboard";
+import { defineElement, defineWhiteboardExtension, IPluginStorage } from "@tau/plugins/whiteboard";
 import { PersonStanding } from "lucide-react";
 import { DEFAULT_STICK_POSE } from "./constants";
 import { getStickPose, stickNaturalSize } from "./model";
@@ -22,14 +18,11 @@ import { readStyle, createStyleWriter } from "./preferences";
 
 declare const __PLUGIN_META__: { id: string; name: string; version: string };
 const poseOf = (options: Readonly<Record<string, unknown>> | null) =>
-  getStickPose(
-    typeof options?.pose === "string" ? options.pose : DEFAULT_STICK_POSE,
-  );
+  getStickPose(typeof options?.pose === "string" ? options.pose : DEFAULT_STICK_POSE);
 
 export const extension = defineWhiteboardExtension({
   id: "taunote.stickman",
   name: "火柴人",
-  requires: [IPluginStorage],
   elements: [
     defineElement<StickmanData>({
       type: elementType,
@@ -47,9 +40,7 @@ export const extension = defineWhiteboardExtension({
               typeof value.pose === "string" &&
               getStickPose(value.pose) &&
               "body" in value &&
-              (value.body === "classic" ||
-                value.body === "bean" ||
-                value.body === "glyph") &&
+              (value.body === "classic" || value.body === "bean" || value.body === "glyph") &&
               "tint" in value &&
               (value.tint === "color" || value.tint === "mono") &&
               "flip" in value &&
@@ -72,7 +63,7 @@ export const extension = defineWhiteboardExtension({
       presentation: {
         label: "人物",
         icon: PersonStanding,
-        getName: (element) => getStickPose(element.data.pose)?.name ?? "人物",
+        getName: element => getStickPose(element.data.pose)?.name ?? "人物",
       },
       interaction: {
         resize: { handles: "corners", preserveAspectRatio: true },
@@ -84,7 +75,7 @@ export const extension = defineWhiteboardExtension({
         gesture: "click",
         defaultSize: [132, 172],
         after: "select",
-        hint: (options) => [`点击放置「${poseOf(options)?.name ?? "人物"}」`],
+        hint: options => [`点击放置「${poseOf(options)?.name ?? "人物"}」`],
         async build({ rect, options, api }) {
           const pose = poseOf(options);
           if (!pose) return null;
@@ -104,7 +95,7 @@ export const extension = defineWhiteboardExtension({
       },
     }),
   ],
-  create: (api) => {
+  create: api => {
     const remember = createStyleWriter(api.getService(IPluginStorage));
     return {
       tools: [
@@ -125,13 +116,7 @@ export const extension = defineWhiteboardExtension({
         }: {
           element: StickmanElement;
           onChange: (element: StickmanElement) => void;
-        }) => (
-          <Inspector
-            element={element}
-            onChange={onChange}
-            remember={remember}
-          />
-        ),
+        }) => <Inspector element={element} onChange={onChange} remember={remember} />,
       },
     };
   },

@@ -108,7 +108,7 @@ schematic: element => [{
 
 ## 私有偏好
 
-需要记住用户选择时，在扩展中声明 `requires: [IPluginStorage]`，通过 `api.getService(IPluginStorage)` 获取存储。`IPluginStorage` 从 `@tau/plugins/whiteboard` 导入，接口与 `PluginContext.storage` 相同：异步 `get(key)`、`set(key, JSON值)`、`delete(key)`。
+需要记住用户选择时，通过 `api.getService(IPluginStorage)` 获取存储。`IPluginStorage` 从 `@tau/plugins/whiteboard` 导入，接口与 `PluginContext.storage` 相同：异步 `get(key)`、`set(key, JSON值)`、`delete(key)`。
 
 宿主按插件真实归属与当前工作区绑定存储，插件不能传入其他插件 ID。画布隐藏、关闭或只读时拒绝交互存储操作；插件失活、工作区切换后，旧实例也不能继续写入。异步读写应捕获错误，并在面板卸载后忽略迟到结果。重新打开白板后绑定当前激活实例。
 

@@ -1,10 +1,10 @@
 # AI 开发指南
 
-- 当前 SDK 0.40.0、UI 0.5.0，平台边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。下文接口最低版本不是当前依赖版本。
+- 当前 SDK 0.41.0、UI 0.5.0，平台边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。下文接口最低版本不是当前依赖版本。
 
 - 先阅读 DEVELOPMENT.md、API.md、manifest.json 和 src/index.tsx，理解现有示例后再修改。
-- 定义文档节点前阅读 EDITOR.md，使用静态 editorExtensions 并声明 manifest.editor；渲染代码须能在浏览器运行，不为移动端或网页另写渲染组件。
-- 本工程使用公开 npm SDK 0.36.0、UI 0.4.0，需要包含白板插件接入的 Tau 客户端。先读 WHITEBOARD.md，人物交互仅使用公共声明；不得深引宿主源码或复制缩放/连接内核。
+- 定义文档节点前阅读 EDITOR.md，使用静态 editorExtensions ；渲染代码须能在浏览器运行，不为移动端或网页另写渲染组件。
+- 本工程使用公开 npm SDK 0.41.0、UI 0.4.0，需要包含白板插件接入的 Tau 客户端。先读 WHITEBOARD.md，人物交互仅使用公共声明；不得深引宿主源码或复制缩放/连接内核。
 - 人物节点身份与现有数据结构保持不变。偏好通过 IPluginStorage 保存，静态渲染与缩略图不能读取存储。编译与转换接口见 SERVICES.md。
 - 使用 AI 前阅读 AI.md，通过 ai.features 声明功能，由用户分配模型并授权。仅调用 context.ai，不索取用户的 API Key；处理取消、未授权和额度不足，不循环重试。
 - README.md 写给第一次使用插件的用户：能做什么、怎么开始、常见问题；不写开发过程、内部实现或迁移历史。它随 ZIP 打包，manifest.description 填一句话简介，CHANGELOG.md 可选。
