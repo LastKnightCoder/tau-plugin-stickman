@@ -13,17 +13,18 @@ import {
 } from "@tau/plugins/whiteboard";
 import { DEFAULT_STICK_POSE, STICK_BODY_OPTIONS } from "../constants";
 import { getStickPose, type StickBody } from "../model";
-import { repose, type StickmanElement } from "../element";
+import type { StickmanElement } from "../element";
+import { readStickmanSketch, type StickmanCommands } from "../commands";
 import type { Style } from "../preferences";
 import PosePicker, { StickGlyph } from "./PosePicker";
 
 export function Inspector({
   element,
-  onChange,
+  commands,
   remember,
 }: {
   element: StickmanElement;
-  onChange: (element: StickmanElement) => void;
+  commands: StickmanCommands;
   remember: (style: Partial<Style>) => Promise<void>;
 }) {
   const [error, setError] = useState("");
@@ -36,7 +37,7 @@ export function Inspector({
   }, []);
   const { pose, body, tint, flip } = element.data;
   const save = (style: Partial<Style>) => {
-    onChange({ ...element, data: { ...element.data, ...style } });
+    if (!commands.data(element.id, style)) return;
     void remember(style).then(
       () => {
         if (mounted.current) setError("");
@@ -61,7 +62,7 @@ export function Inspector({
           value={pose}
           body={body}
           tint={tint}
-          onPick={(key) => onChange(repose(element, key))}
+          onPick={(key) => commands.pose(element.id, key)}
         />
       </AttrPopover>
       <AttrPopover
@@ -97,11 +98,14 @@ export function Inspector({
         label="水平翻转"
         icon={<FlipHorizontal2 strokeWidth={1.75} />}
         checked={flip}
-        onChange={(value) =>
-          onChange({ ...element, data: { ...element.data, flip: value } })
+        onChange={(value) => commands.data(element.id, { flip: value })}
+      />
+      <SketchPopover
+        target={{ ...element, sketch: readStickmanSketch(element) }}
+        onChange={(next) =>
+          commands.sketch(element.id, readStickmanSketch(element), next.sketch)
         }
       />
-      <SketchPopover target={element} onChange={onChange} />
       {error && <span role="alert">{error}</span>}
     </>
   );

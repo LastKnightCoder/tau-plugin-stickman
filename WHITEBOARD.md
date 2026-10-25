@@ -1,6 +1,6 @@
 # 白板插件
 
-白板作者接口需要 SDK 0.8.0 及包含白板扩展支持的 Tau 客户端。SDK 0.7.0 不提供此能力。
+本文使用 SDK 0.45.0 的白板契约；具体依赖与宿主边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
 
 插件定义中声明 `whiteboardExtensions`，manifest 只声明支持平台与最低客户端版本。使用 `@tau/plugins/whiteboard` 导入定义函数和类型，并将该模块保留为构建 external，由宿主提供实现。一个 main.js 同时包含声明、渲染与交互，不生成另一个渲染入口。
 
@@ -15,6 +15,7 @@ const extension = defineWhiteboardExtension({
   elements: [
     defineElement({
       type,
+      dataVersion: 1,
       render: ({ element }) => (
         <rect
           x={element.x}
@@ -56,11 +57,12 @@ export default definePlugin({ ...__PLUGIN_META__, whiteboardExtensions: [extensi
 
 - `elements` 在扩展顶层静态声明，禁止放到 `create` 返回值中。元素类型必须以完整插件 ID 加点开头，扩展 ID 为插件 ID 或其子命名空间。
 - `create(api)` 每个画布单独执行，返回 `tools`、`inspectors`、`commands` 等交互贡献。状态放在实例闭包，不能放在模块顶层跨画布共享。
-- 元素私有字段放在 `data`，通过 `defineElement<TData>` 和可选同步 Standard Schema 校验约束；通用位置和尺寸仍在元素顶层。
-- 属性修改走 `api.updateElement`，结构操作走 `api.submit`；这些入口统一处理只读、历史及生命周期。不要修改返回的快照。
+- 元素私有字段放在 `data`，通过 `defineElement<TData>` 和同步 Standard Schema 校验约束。render/create 回调仍使用平铺几何；api.getElement/getSnapshot 的只读投影使用 geometry，不能混用。
+- 普通字段走 `api.updateElementData(id, patch)`，外壳走 `api.updateElement(id, { geometry, style })`，结构及组合修改走 `api.submit` 的身份命令；不使用路径操作或 apply，不回写整份旧元素。所有入口共用宿主只读、历史及生命周期。
+- 新声明使用 dataVersion，历史版本只能显式登记精确契约；不混用 schemaVersion/migrate，不在加载时迁移。
 - 元素组件可用 `useWhiteboardAPI()` 获取所属扩展的受控 API，不接触内部 Board。声明求值阶段不得读取 DOM。
 - `activate` 随画布显示运行，停驻会清理；`dispose` 在真正销毁时运行。插件整体启用/停用/更新在重启后改变静态装配，不热替换打开中的画布。
-- 找不到插件时保留节点并显示未知元素占位，重新安装并启用后恢复。保存、复制不能丢弃未知节点。
+- 找不到插件时保留节点并显示占位，重新装配匹配的精确契约后恢复。旧 schemaVersion 快照另走显式转换，不能保证仅安装插件即可编辑；保存、复制不能丢弃未知节点。
 
 ## 通用展示与交互
 
@@ -103,6 +105,8 @@ schematic: element => [{
 - `SketchPaths` 渲染已有手绘路径；`sketch` 命名空间提供 createRandom、distance、polylineToD、resample、wobble、inkOutline、inkSize、loopStroke、handTextClass。复用宿主纯算法，不从白板内部目录复制实现。
 - `usePageSketch()` 读取所属页面的画风；`sketch.hashSeed(text)` 为预览图生成稳定种子。`AttrPopover`、`AttrToggle`、`OptionGrid`、`Seg` 供属性面板使用，`SketchPopover` 提供与宿主相同的元素笔触设置。
 - `schematic(element, { dark })` 返回纯图元数组，用于列表与导出弹窗的简略预览；字段类型见 SchematicShape。不能调用 hook、修改元素或依赖某个画布已打开。实际图像导出仍使用完整画布渲染，不使用简略投影替代。
+
+火柴人的 `SketchPopover` 保持原控件，只将用户实际修改的笔触项提交到 style 对应字段；渲染从这些字段还原 ElementSketch 后交给 useSketch。不要把整个属性栏的旧元素传回宿主，以免覆盖远端更新。
 
 构建 Tailwind 工具类时可导入 `@tau/plugins/tailwind.css`，其中仅包含语义类名映射，主题变量由客户端提供。不要引入未公开的宿主主题包。
 

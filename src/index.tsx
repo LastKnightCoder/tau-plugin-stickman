@@ -15,6 +15,7 @@ import {
 import { ToolPanel } from "./components/ToolPanel";
 import { Inspector } from "./components/Inspector";
 import { readStyle, createStyleWriter } from "./preferences";
+import { createStickmanCommands } from "./commands";
 
 declare const __PLUGIN_META__: { id: string; name: string; version: string };
 const poseOf = (options: Readonly<Record<string, unknown>> | null) =>
@@ -26,7 +27,9 @@ export const extension = defineWhiteboardExtension({
   elements: [
     defineElement<StickmanData>({
       type: elementType,
-      schemaVersion: 1,
+      dataVersion: 1,
+      collaboration: { textFields: [] },
+      resources: [],
       render: Stickman,
       schema: {
         "~standard": {
@@ -48,6 +51,7 @@ export const extension = defineWhiteboardExtension({
             )
               return {
                 value: {
+                  ...value,
                   pose: value.pose,
                   body: value.body,
                   tint: value.tint,
@@ -84,7 +88,6 @@ export const extension = defineWhiteboardExtension({
           return {
             id: crypto.randomUUID(),
             type: elementType,
-            schemaVersion: 1,
             x: rect.x + (rect.width - width) / 2,
             y: rect.y + (rect.height - height) / 2,
             width,
@@ -97,6 +100,7 @@ export const extension = defineWhiteboardExtension({
   ],
   create: api => {
     const remember = createStyleWriter(api.getService(IPluginStorage));
+    const commands = createStickmanCommands(api);
     return {
       tools: [
         {
@@ -110,13 +114,9 @@ export const extension = defineWhiteboardExtension({
         },
       ],
       inspectors: {
-        [elementType]: ({
-          element,
-          onChange,
-        }: {
-          element: StickmanElement;
-          onChange: (element: StickmanElement) => void;
-        }) => <Inspector element={element} onChange={onChange} remember={remember} />,
+        [elementType]: ({ element }: { element: StickmanElement }) => (
+          <Inspector element={element} commands={commands} remember={remember} />
+        ),
       },
     };
   },

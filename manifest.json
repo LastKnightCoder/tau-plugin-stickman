@@ -2,12 +2,17 @@
   "id": "taunote.stickman",
   "name": "火柴人",
   "description": "在白板中放置人物姿态，支持形体、配色、翻转和手绘画风。",
-  "categories": ["whiteboard"],
-  "keywords": ["火柴人", "手绘"],
-  "version": "0.1.10",
+  "categories": [
+    "whiteboard"
+  ],
+  "keywords": [
+    "火柴人",
+    "手绘"
+  ],
+  "version": "0.1.11",
   "targets": {
     "desktop": {
-      "minAppVersion": "0.59.4"
+      "minAppVersion": "0.59.5"
     }
   }
 }

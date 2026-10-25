@@ -15,15 +15,15 @@ git push origin "v$version"
 
 tag也可不带v前缀，版本必须与两个文件一致；预发布版本自动标记为Pre-release。Actions失败可重跑，已有Release会更新同名ZIP。已发布版本不要移动tag，代码修复应提高版本再发布。仓库需启用Actions并允许contents:write。Git远程统一使用SSH；该流程通过 OIDC 提交插件中心，沿用作者身份与仓库绑定规则；不发布客户端。
 
-使用 Node.js 24、pnpm 11.9.0。依赖公开 npm SDK 0.8.0，无需本地声明包或主项目源码。
+使用 Node.js 24、pnpm 11.9.0。使用 SDK 0.45.0 的正式依赖，按 [兼容性说明](COMPATIBILITY.md) 完成验证后，在获得发布授权时执行上述发布流程。
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm check
+pnpm test
 pnpm build
 ```
 
-产物为 `dist/taunote.stickman-0.1.1.zip`。构建仅依赖公开 npm 包，不引用宿主源码。构建成功不代表客户端验收完成。
+在仓库外使用正式锁文件执行冻结安装、类型检查、测试与构建，生成 `taunote.stickman-0.1.11.zip`；再用该实际产物运行主仓库 scripts/plugins/stickman 中的组合测试。插件功能代码不引用宿主源码；组合测试由主仓库提供宿主。构建成功不代表客户端验收完成。
 
 ## 实现位置
 
@@ -31,13 +31,14 @@ pnpm build
 | --- | --- |
 | src/index.tsx | 静态元素、创建工具、属性栏、存储依赖声明 |
 | src/model/ | 姿态、人物笔画、普通与手绘图形 |
-| src/element.tsx | 元素渲染、换姿态的几何调整、缩略图投影 |
+| src/element.tsx | 元素渲染、笔触投影、缩略图投影 |
+| src/commands.ts | 按稳定身份提交属性、姿态与笔触，复用宿主历史 |
 | src/components/ | 创建前选姿态、人物属性和图形组件 |
 | src/preferences.ts | 工作区形体/配色偏好读取与顺序写入 |
 | src/styles.css | 随包发布的界面样式 |
 | WHITEBOARD.md | 公共白板 SDK 契约 |
 
-交互内核和通用属性控件由宿主提供。不要复制缩放、箭头连接、历史或笔触控件，不从宿主目录深引。人物节点继续使用 `taunote.stickman.figure` 与 `data`，不添加旧格式转换。
+交互内核和通用属性控件由宿主提供。不要复制缩放、箭头连接、历史或笔触控件，不从宿主目录深引。人物节点继续使用 `taunote.stickman.figure` 与 `data`；旧快照边界见 COMPATIBILITY.md，不添加插件加载时自动转换。
 
 ## 本地验收
 

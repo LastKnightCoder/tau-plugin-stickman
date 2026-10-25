@@ -12,10 +12,10 @@ import {
   type StickTint,
 } from "./model";
 import { STICK_PADDING } from "./constants";
+import { readStickmanSketch } from "./commands";
 import StickFigure from "./components/StickFigure";
 
-export const elementType = "taunote.stickman.figure";
-export const toolId = "taunote.stickman.create";
+export { elementType, toolId } from "./constants";
 export type StickmanData = {
   pose: string;
   body: StickBody;
@@ -25,7 +25,7 @@ export type StickmanData = {
 export type StickmanElement = TypedBoardElement<StickmanData>;
 
 export function Stickman({ element }: { element: StickmanElement }) {
-  const appearance = useSketch(element);
+  const appearance = useSketch({ ...element, sketch: readStickmanSketch(element) });
   const pose = getStickPose(element.data.pose);
   if (!pose) return null;
   return (
@@ -48,24 +48,6 @@ export function Stickman({ element }: { element: StickmanElement }) {
       />
     </svg>
   );
-}
-
-export function repose(element: StickmanElement, key: string): StickmanElement {
-  const next = getStickPose(key);
-  const previous = getStickPose(element.data.pose);
-  if (!next || !previous) return element;
-  const scale = element.width / stickNaturalSize(previous)[0];
-  const [w, h] = stickNaturalSize(next);
-  const width = w * scale,
-    height = h * scale;
-  return {
-    ...element,
-    x: element.x + (element.width - width) / 2,
-    y: element.y + element.height - height,
-    width,
-    height,
-    data: { ...element.data, pose: key },
-  };
 }
 
 export function schematic(element: StickmanElement): SchematicShape[] {

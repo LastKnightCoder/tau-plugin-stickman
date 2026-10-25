@@ -31,3 +31,5 @@ export const DEFAULT_STICK_TINT: StickTint = "color";
 
 /** 姿态画布四周的留白：道具与墨迹会略微出界 */
 export const STICK_PADDING = 6;
+export const elementType = "taunote.stickman.figure";
+export const toolId = "taunote.stickman.create";
