@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useI18n } from "@tau/plugins";
 import {
   IPluginStorage,
   useWhiteboardAPI,
@@ -6,9 +7,11 @@ import {
 } from "@tau/plugins/whiteboard";
 import { Button } from "@tau/ui";
 import { readStyle, type Style } from "../preferences";
+import { messages } from "../i18n";
 import PosePicker from "./PosePicker";
 
 export function ToolPanel({ run }: WhiteboardToolProps) {
+  const { t } = useI18n(messages);
   const api = useWhiteboardAPI();
   const [style, setStyle] = useState<Style | null>(null);
   const [error, setError] = useState("");
@@ -34,12 +37,12 @@ export function ToolPanel({ run }: WhiteboardToolProps) {
       {error ? (
         <div role="alert">
           {error}
-          <Button onClick={() => setAttempt((value) => value + 1)}>重试</Button>
+          <Button onClick={() => setAttempt((value) => value + 1)}>{t("panel.retry")}</Button>
         </div>
       ) : style ? (
         <PosePicker {...style} onPick={(pose) => run({ pose })} />
       ) : (
-        <p role="status">正在读取人物样式…</p>
+        <p role="status">{t("panel.loading")}</p>
       )}
     </div>
   );

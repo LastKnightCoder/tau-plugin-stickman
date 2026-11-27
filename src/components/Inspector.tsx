@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "@tau/plugins";
 import {
   FlipHorizontal2,
   Palette,
@@ -16,6 +17,7 @@ import { getStickPose, type StickBody } from "../model";
 import type { StickmanElement } from "../element";
 import { readStickmanSketch, type StickmanCommands } from "../commands";
 import type { Style } from "../preferences";
+import { messages } from "../i18n";
 import PosePicker, { StickGlyph } from "./PosePicker";
 
 export function Inspector({
@@ -27,6 +29,7 @@ export function Inspector({
   commands: StickmanCommands;
   remember: (style: Partial<Style>) => Promise<void>;
 }) {
+  const { t } = useI18n(messages);
   const [error, setError] = useState("");
   const mounted = useRef(false);
   useEffect(() => {
@@ -45,7 +48,9 @@ export function Inspector({
       (reason) => {
         if (mounted.current)
           setError(
-            `记住样式失败：${reason instanceof Error ? reason.message : String(reason)}`,
+            t("inspector.rememberFailed", {
+              message: reason instanceof Error ? reason.message : String(reason),
+            }),
           );
       },
     );
@@ -54,7 +59,7 @@ export function Inspector({
   return (
     <>
       <AttrPopover
-        label="姿态"
+        label={t("inspector.pose")}
         icon={<PersonStanding strokeWidth={1.75} />}
         width={348}
       >
@@ -66,7 +71,7 @@ export function Inspector({
         />
       </AttrPopover>
       <AttrPopover
-        label="形体"
+        label={t("inspector.body")}
         icon={<UserRound strokeWidth={1.75} />}
         width={240}
       >
@@ -75,6 +80,7 @@ export function Inspector({
           tall
           options={STICK_BODY_OPTIONS.map((o) => ({
             ...o,
+            label: t(o.label),
             glyph: (
               <StickGlyph
                 pose={standing}
@@ -89,13 +95,13 @@ export function Inspector({
         />
       </AttrPopover>
       <AttrToggle
-        label="着色"
+        label={t("inspector.tint")}
         icon={<Palette strokeWidth={1.75} />}
         checked={tint === "color"}
         onChange={(value) => save({ tint: value ? "color" : "mono" })}
       />
       <AttrToggle
-        label="水平翻转"
+        label={t("inspector.flip")}
         icon={<FlipHorizontal2 strokeWidth={1.75} />}
         checked={flip}
         onChange={(value) => commands.data(element.id, { flip: value })}

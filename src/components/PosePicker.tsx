@@ -1,10 +1,13 @@
 import { memo, useState } from "react";
+import { useI18n } from "@tau/plugins";
 import {
   usePageSketch,
   Seg,
   sketch as sketchTools,
   type ResolvedSketch,
 } from "@tau/plugins/whiteboard";
+import { CATEGORY_KEYS, POSE_NAME_KEYS } from "../constants";
+import { messages } from "../i18n";
 import {
   STICK_CATEGORIES,
   STICK_POSES,
@@ -59,18 +62,19 @@ interface PosePickerProps {
 
 /** 人物面板：分类切换 + 4 列姿态图块，工具栏放置与属性条换姿态共用 */
 const PosePicker = memo(({ value, body, tint, onPick }: PosePickerProps) => {
+  const { t } = useI18n(messages);
   const [category, setCategory] = useState<StickCategory>(
     () => getStickPose(value ?? "")?.cat ?? STICK_CATEGORIES[0].key,
   );
   return (
     <div className="tau-stickman-picker">
       <Seg<StickCategory>
-        label="人物分类"
+        label={t("picker.category")}
         value={category}
         onChange={setCategory}
         options={STICK_CATEGORIES.map((c) => ({
           value: c.key,
-          label: c.label,
+          label: t(CATEGORY_KEYS[c.key]),
         }))}
       />
       <div className="tau-stickman-poses">
@@ -78,13 +82,13 @@ const PosePicker = memo(({ value, body, tint, onPick }: PosePickerProps) => {
           <button
             key={pose.key}
             type="button"
-            aria-label={pose.name}
+            aria-label={t(POSE_NAME_KEYS[pose.key])}
             aria-pressed={pose.key === value}
             onClick={() => onPick(pose.key)}
             className="tau-stickman-pose"
           >
             <StickGlyph pose={pose} body={body} tint={tint} size={52} />
-            {pose.name}
+            {t(POSE_NAME_KEYS[pose.key])}
           </button>
         ))}
       </div>
