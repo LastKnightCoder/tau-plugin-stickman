@@ -15,7 +15,7 @@ git push origin "v$version"
 
 tag也可不带v前缀，版本必须与两个文件一致；预发布版本自动标记为Pre-release。Actions失败可重跑，已有Release会更新同名ZIP。已发布版本不要移动tag，代码修复应提高版本再发布。仓库需启用Actions并允许contents:write。Git远程统一使用SSH；该流程通过 OIDC 提交插件中心，沿用作者身份与仓库绑定规则；不发布客户端。
 
-使用 Node.js 24、pnpm 11.9.0。使用 SDK 0.45.0 的正式依赖，按 [兼容性说明](COMPATIBILITY.md) 完成验证后，在获得发布授权时执行上述发布流程。
+使用 Node.js 24、pnpm 11.9.0。使用 SDK 0.63.0 的正式依赖，按 [兼容性说明](COMPATIBILITY.md) 完成验证后，在获得发布授权时执行上述发布流程。
 
 ```sh
 pnpm install --frozen-lockfile

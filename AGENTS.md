@@ -1,6 +1,6 @@
 # AI 开发指南
 
-- 使用正式 SDK 0.45.0、UI 0.5.0，按真实 npm 锁文件安装并验证新白板契约。步骤与边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
+- 使用正式 SDK 0.63.0、UI 0.7.1，按真实 npm 锁文件安装并验证新白板契约。步骤与边界见 [COMPATIBILITY.md](COMPATIBILITY.md)。
 
 - 先阅读 DEVELOPMENT.md、API.md、manifest.json 和 src/index.tsx，理解现有示例后再修改。
 - 定义文档节点前阅读 EDITOR.md，使用静态 editorExtensions ；渲染代码须能在浏览器运行，不为移动端或网页另写渲染组件。

@@ -9,10 +9,32 @@
     "火柴人",
     "手绘"
   ],
-  "version": "0.1.12",
+  "locales": [
+    "zh-CN",
+    "zh-TW",
+    "en-US"
+  ],
+  "i18n": {
+    "zh-TW": {
+      "description": "在白板中放置人物姿態，支援體態、配色、翻轉與手繪畫風。",
+      "keywords": [
+        "火柴人",
+        "手繪"
+      ]
+    },
+    "en-US": {
+      "name": "Stickman",
+      "description": "Place stick-figure poses on the Whiteboard with customizable styles, colors, flipping, and hand-drawn strokes.",
+      "keywords": [
+        "stickman",
+        "hand-drawn"
+      ]
+    }
+  },
+  "version": "0.1.13",
   "targets": {
     "desktop": {
-      "minAppVersion": "0.59.5"
+      "minAppVersion": "0.68.0"
     }
   }
 }
